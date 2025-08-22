@@ -54,7 +54,7 @@ The enriched dataset is then loaded into **Power BI Desktop** to build an intera
 [View the full report (PDF)](docs/report.pdf)
 
 <p align="center">
-  <img src="docs/dashboard-sample.png" alt="Power BI Dashboard Sample" width="700">
+  <img src="docs/PowerBIDash.png" alt="Power BI Dashboard Sample" width="700">
 </p>
 
 ---
