@@ -32,12 +32,8 @@ def download_file(url: str, out_path: Path) -> Path:
         print(f"[!] Download failed: {e}", file=sys.stderr)
         sys.exit(1)
 
+#This method remove the first 8 line which is just detail of csv and last line of the file.
 def jargonRemover(file_path: Path) -> Path:
-    # """
-    # Removes the first 8 lines of the Feodo Tracker CSV,
-    # so that the 9th line becomes the header row.
-    # The cleaned file overwrites the original file.
-    # """
     try:
         lines = file_path.read_text(encoding="utf-8").splitlines()
 
@@ -73,7 +69,6 @@ def main():
     print(f"[+] Saved: {saved} ({saved.stat().st_size} bytes)\n")
 
     jargonRemover(saved);
-
     # Maintain a stable "latest" file for downstream pipelines
     latest = saved.parent / "latest_feodo_aggressive.csv"
     try:
