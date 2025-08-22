@@ -80,7 +80,7 @@ def compute_lifespan(df: pd.DataFrame) -> pd.DataFrame:
 def load_cache(cache_path: Path) -> Dict[str, dict]:
     if cache_path and cache_path.exists():
         try:
-            return json.loads(cache_path.read_text())
+            return json.loads(cache_path.read_text(encoding="utf-8"))
         except Exception:
             return {}
     return {}
@@ -88,7 +88,10 @@ def load_cache(cache_path: Path) -> Dict[str, dict]:
 def save_cache(cache_path: Path, cache: Dict[str, dict]) -> None:
     if cache_path:
         cache_path.parent.mkdir(parents=True, exist_ok=True)
-        cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=2))
+        cache_path.write_text(
+            json.dumps(cache, ensure_ascii=False, indent=2),
+            encoding="utf-8"   
+        )
 
 def ip_api_batch_query(ips: List[str], timeout: int = 10) -> List[dict]:
     # ip-api.com/batch accepts list of objects: {"query": "1.2.3.4"}

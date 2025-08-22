@@ -40,12 +40,20 @@ def jargonRemover(file_path: Path) -> Path:
     # """
     try:
         lines = file_path.read_text(encoding="utf-8").splitlines()
-        cleaned_lines = lines[8:]  # drop the first 8 lines
+
+        # Drop first 8 lines (banner) and last line (footer)
+        if len(lines) > 9:  # sanity check
+            cleaned_lines = lines[8:-1]
+        else:
+            cleaned_lines = lines  # fallback, in case file is shorter than expected
+
         file_path.write_text("\n".join(cleaned_lines), encoding="utf-8")
-        print(f"[+] Cleaned CSV: removed header banner (8 lines) from {file_path}")
+        print(f"[+] Cleaned CSV: removed 8 header lines and 1 footer line from {file_path}")
+
     except Exception as e:
         print(f"[!] Failed to clean CSV: {e}", file=sys.stderr)
         sys.exit(1)
+
     return file_path
 
 
