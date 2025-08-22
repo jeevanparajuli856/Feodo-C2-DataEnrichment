@@ -50,6 +50,9 @@ The enriched dataset is then loaded into **Power BI Desktop** to build an intera
 - 📈 **Timeline** → New malicious IPs detected by month
 - ⏳ **Server Lifespan** → How long C2 servers remain active
 
+📑 Power BI Sample Dashboard
+[View the full report (PDF)](docs/report.pdf)
+
 <p align="center">
   <img src="docs/dashboard-sample.png" alt="Power BI Dashboard Sample" width="700">
 </p>
@@ -61,3 +64,4 @@ The enriched dataset is then loaded into **Power BI Desktop** to build an intera
 ### 1️⃣ Download the latest dataset
 ```bash
 python latestDataset.py
+python datasetEnricher.py -i input.csv -o output.csv
