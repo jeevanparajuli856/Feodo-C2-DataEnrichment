@@ -32,6 +32,23 @@ def download_file(url: str, out_path: Path) -> Path:
         print(f"[!] Download failed: {e}", file=sys.stderr)
         sys.exit(1)
 
+def jargonRemover(file_path: Path) -> Path:
+    # """
+    # Removes the first 8 lines of the Feodo Tracker CSV,
+    # so that the 9th line becomes the header row.
+    # The cleaned file overwrites the original file.
+    # """
+    try:
+        lines = file_path.read_text(encoding="utf-8").splitlines()
+        cleaned_lines = lines[8:]  # drop the first 8 lines
+        file_path.write_text("\n".join(cleaned_lines), encoding="utf-8")
+        print(f"[+] Cleaned CSV: removed header banner (8 lines) from {file_path}")
+    except Exception as e:
+        print(f"[!] Failed to clean CSV: {e}", file=sys.stderr)
+        sys.exit(1)
+    return file_path
+
+
 def main():
     parser = argparse.ArgumentParser(description="Download latest Feodo Tracker aggressive IP blocklist CSV.")
     parser.add_argument("-o", "--output", default=None, help="Output CSV path. Defaults to ./data/feodo_aggressive_YYYYMMDD.csv")
@@ -46,6 +63,8 @@ def main():
     saved = download_file(URL, out_path)
     print(f"\nDownloading latest dataset............./")
     print(f"[+] Saved: {saved} ({saved.stat().st_size} bytes)\n")
+
+    jargonRemover(saved);
 
     # Maintain a stable "latest" file for downstream pipelines
     latest = saved.parent / "latest_feodo_aggressive.csv"
