@@ -29,7 +29,7 @@ The enriched dataset can then be fed into **Power BI** to create an interactive 
 ---
 
 ### 2. `datasetEnricher.py`
-- Enriches the raw dataset with:
+-Enriches the raw dataset using pandas for data cleaning, transformation, and enrichment:
   - 🌍 **Geolocation & ASN info** (via ip-api.com batch API)
   - 🔌 **Port service mapping** (e.g., `443 → https`, `25 → smtp`, else marked as `uncommon`)
   - ⏳ **C2 server lifespan** (days online, based on first_seen vs last_online)
